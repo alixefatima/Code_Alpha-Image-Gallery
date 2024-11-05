@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nature Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/white-diamond.png');
+            /* Light background pattern */
+            background-color: #3498db;
+            background-repeat: repeat;
+            text-align: center;
+        }
+
+        /* Gallery Container */
+        .gallery-container {
+            width: 80%;
+            max-width: 1000px;
+            margin: 50px auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Thumbnails and Navigation Buttons */
+        .thumbnail-table {
+            width: 100%;
+            table-layout: fixed;
+            border-spacing: 10px;
+        }
+
+        /* Thumbnail Styles */
+        .thumbnail {
+            width: 170px;
+            height: 150px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.1);
+            opacity: 0.7;
+        }
+
+        .thumbnail.active {
+            border: 3px solid #3498db;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .thumbnail {
+                width: 90px;
+                height: 60px;
+            }
+        }
+
+        /* Navigation Buttons (Next and Previous) */
+        .nav-btn {
+            background-color: rgba(89, 188, 228, 0.9);
+            color: white;
+            border: none;
+            font-size: 40px;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+            margin: 20px;
+        }
+
+        .nav-btn:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gallery-container">
+        <!-- Thumbnail Gallery -->
+        <button class="nav-btn prev-btn" onclick="prevImage()">&#10094;</button>
+        <table class="thumbnail-table">
+            <tr>
+                <td><img src="./images/one.jpeg" class="thumbnail" onclick="showImage(1)" alt="Thumbnail 1"></td>
+                <td><img src="./images/two.jpeg" class="thumbnail" onclick="showImage(2)" alt="Thumbnail 2"></td>
+                <td><img src="./images/three.jpeg" class="thumbnail" onclick="showImage(3)" alt="Thumbnail 3"></td>
+                <td><img src="./images/four.jpeg" class="thumbnail" onclick="showImage(4)" alt="Thumbnail 4"></td>
+                <td><img src="./images/five.jpeg" class="thumbnail" onclick="showImage(5)" alt="Thumbnail 5"></td>
+            </tr>
+            <tr>
+                <td><img src="./images/six.jpeg" class="thumbnail" onclick="showImage(6)" alt="Thumbnail 6"></td>
+                <td><img src="./images/seven.jpeg" class="thumbnail" onclick="showImage(7)" alt="Thumbnail 7"></td>
+                <td><img src="./images/eight.jpeg" class="thumbnail" onclick="showImage(8)" alt="Thumbnail 8"></td>
+                <td><img src="./images/nine.webp" class="thumbnail" onclick="showImage(9)" alt="Thumbnail 9"></td>
+                <td><img src="./images/ten.jpeg" class="thumbnail" onclick="showImage(10)" alt="Thumbnail 10"></td>
+            </tr>
+        </table>
+        <button class="nav-btn next-btn" onclick="nextImage()">&#10095;</button>
+    </div>
+
+    <script>
+        let currentIndex = 1;
+        const totalImages = 10;
+
+        // Function to show the selected image and update the current image
+        function showImage(index) {
+            currentIndex = index;
+            updateActiveThumbnail();
+        }
+
+        // Function to navigate to the next image
+        function nextImage() {
+            currentIndex = currentIndex >= totalImages ? 1 : currentIndex + 1;
+            showImage(currentIndex);
+        }
+
+        // Function to navigate to the previous image
+        function prevImage() {
+            currentIndex = currentIndex <= 1 ? totalImages : currentIndex - 1;
+            showImage(currentIndex);
+        }
+
+        // Update the active thumbnail styling
+        function updateActiveThumbnail() {
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach((thumbnail, index) => {
+                if (index === currentIndex - 1) {
+                    thumbnail.classList.add('active');
+                }
+                else {
+                    thumbnail.classList.remove('active');
+                }
+            });
+        }
+
+        // Initialize the active thumbnail on page load
+        window.onload = updateActiveThumbnail;
+    </script>
+</body>
+</html>
